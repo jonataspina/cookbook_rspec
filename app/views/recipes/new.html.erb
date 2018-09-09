@@ -1,6 +1,10 @@
 <h1>Cadastrar Nova Receita</h1>
 
-<%= form_for(Recipe.new) do |f|%>
+<% if @recipe.errors.any? %>
+    <p>Você deve informar todos os dados da receita</p>
+<% end %>
+
+<%= form_for(@recipe) do |f|%>
     <div>
         <%= f.label :title, 'Título' %>
         <%= f.text_field :title %>

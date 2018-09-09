@@ -5,7 +5,7 @@ class RecipesController < ApplicationController
     end 
 
     def new
-
+        @recipe = Recipe.new
     end
 
     def create 
@@ -14,10 +14,14 @@ class RecipesController < ApplicationController
                                                        :cook_time, :ingredients, :cook_method)
                                             
         # criar a receita em si
-        recipe = Recipe.create(recipe_params)
+        @recipe = Recipe.new(recipe_params)
 
         # redirecionar para a receita recém criada.
-        redirect_to recipe_path recipe.id
+        if @recipe.save
+            redirect_to recipe_path @recipe.id
+        else
+            render 'new'
+        end 
     end 
 
     def edit
@@ -32,8 +36,10 @@ class RecipesController < ApplicationController
         recipe_params = params.require(:recipe).permit(:title, :recipe_type, :cuisine, :difficulty,
         :cook_time, :ingredients, :cook_method)
 
-        @recipe.update(recipe_params)
-
-        redirect_to recipe_path @recipe
+        if @recipe.update(recipe_params)
+            redirect_to recipe_path @recipe
+        else
+            render 'edit'
+        end 
     end 
 end
