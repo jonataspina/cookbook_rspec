@@ -33,5 +33,9 @@
         <%= f.label :cook_method, 'Como Preparar' %>
         <%= f.text_area :cook_method %>
     </div>
+    <div>
+        <%= check_box_tag(:featured) %>
+        <%= label_tag(:featured, 'Marcar como destaque') %>
+    </div>
     <%= f.submit 'Enviar' %>
 <% end %>
